@@ -1,0 +1,128 @@
+﻿<Window x:Class="BML.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Sidebar Example" Height="450" Width="800"
+        WindowStartupLocation="CenterScreen" WindowStyle="None"
+        ResizeMode="NoResize" WindowState="Normal"
+         SnapsToDevicePixels="True">
+    <Window.Resources>
+        <!-- 定义窗口的圆角边框样式 -->
+        <Style x:Key="RoundedWindowStyle" TargetType="Window">
+            <Setter Property="WindowChrome.WindowChrome">
+                <Setter.Value>
+                    <WindowChrome CornerRadius="10" GlassFrameThickness="0" UseAeroCaptionButtons="False"/>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <!-- Background Colors -->
+        <SolidColorBrush x:Key="PrimaryBackgroundColor" Color="#f3f3f3"/>
+        <SolidColorBrush x:Key="SecundaryBackgroundColor" Color="#f9f9f9"/>
+
+        <!-- Primary Colors -->
+        <SolidColorBrush x:Key="PrimaryBlueColor" Color="#39C5BB"/>
+        <SolidColorBrush x:Key="PrimaryGrayColor" Color="#BFBFC4"/>
+
+        <!-- Secundary Colors -->
+        <SolidColorBrush x:Key="SecundaryBlueColor" Color="#CEE8FB"/>
+        <SolidColorBrush x:Key="SecundaryGrayColor" Color="#EEEEEE"/>
+
+        <!-- Typograhy Colors -->
+        <SolidColorBrush x:Key="TextPrimaryColor" Color="#020F16"/>
+        <SolidColorBrush x:Key="TextSecundaryColor" Color="#434344"/>
+
+        <!-- Icons Colors -->
+        <SolidColorBrush x:Key="ActionIconColor" Color="#434344"/>
+        <!-- 定义展开和折叠侧边栏的动画 -->
+        <Storyboard x:Key="ExpandSidebar">
+            <DoubleAnimation Storyboard.TargetName="Sidebar" Storyboard.TargetProperty="Width" To="200" Duration="0:0:0.3"/>
+        </Storyboard>
+        <Storyboard x:Key="CollapseSidebar">
+            <DoubleAnimation Storyboard.TargetName="Sidebar" Storyboard.TargetProperty="Width" To="45" Duration="0:0:0.3"/>
+        </Storyboard>
+
+        <!-- 修改自定义 RadioButton 的样式 -->
+        <Style x:Key="MenuRadioButtonStyle" TargetType="{x:Type RadioButton}">
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="Foreground" Value="{DynamicResource TextPrimaryColor}"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="FontWeight" Value="Normal"/>
+            <Setter Property="FontSize" Value="15"/>
+            <Setter Property="Height" Value="40"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type RadioButton}">
+                        <Border x:Name="menuButton"  Background="{TemplateBinding Background}" BorderThickness="{TemplateBinding BorderThickness}">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="44"/>
+                                    <ColumnDefinition/>
+                                </Grid.ColumnDefinitions>
+                                <Border x:Name="btnSelected" Grid.ColumnSpan="2" CornerRadius="4" Width="210" HorizontalAlignment="Right" Background="{DynamicResource SecundaryBackgroundColor}" Visibility="Collapsed"/>
+                                <Rectangle Name="Indicator" HorizontalAlignment="Left" Width="4" Height="40" VerticalAlignment="Center" RadiusX="2" RadiusY="2" Fill="{DynamicResource PrimaryBlueColor}" Visibility="Collapsed"/>
+                                <Path x:Name="Icon" Data="{Binding Tag, RelativeSource={RelativeSource AncestorType={x:Type RadioButton}}}" Height="24" Width="24" Stretch="None" Fill="{DynamicResource ActionIconColor}" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="0 0 8 0" Visibility="Visible"/>
+                                <TextBlock x:Name="txtName" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="12 0 0 0"
+                                    Grid.Column="1" Text="{TemplateBinding Content}" Foreground="{TemplateBinding Foreground}"
+                                    FontWeight="{TemplateBinding FontWeight}"
+                                    FontSize="{TemplateBinding FontSize}"/>
+                            </Grid>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="Indicator" Property="Visibility" Value="Visible"/>
+                                <Setter TargetName="txtName" Property="Foreground" Value="{DynamicResource PrimaryBlueColor}"/>
+                                <Setter TargetName="Icon" Property="Fill" Value="{DynamicResource PrimaryBlueColor}"/>
+                            </Trigger>
+                            <Trigger Property="IsChecked" Value="True">
+                                <Setter TargetName="Indicator" Property="Visibility" Value="Visible"/>
+                                <Setter TargetName="Icon" Property="Fill" Value="{DynamicResource PrimaryBlueColor}"/>
+                                <Setter TargetName="btnSelected" Property="Visibility" Value="Visible"/>
+                                <Setter TargetName="txtName" Property="Foreground" Value="{DynamicResource PrimaryBlueColor}"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+
+
+
+    </Window.Resources>
+
+    <Window.Style>
+        <StaticResource ResourceKey="RoundedWindowStyle"/>
+    </Window.Style>
+
+    <Grid>
+
+
+        <Grid>
+            <!-- 主要内容和侧边栏 -->
+            <Grid>
+                <!-- 主要内容 -->
+                <Grid>
+                    <Frame x:Name="PagesNavigation" />
+                </Grid>
+
+                <!-- 侧边栏 -->
+                <Grid x:Name="Sidebar" Width="44" Background="#EEEE" HorizontalAlignment="Left">
+                    <StackPanel VerticalAlignment="Top">
+                        <!-- 展开按钮 -->
+                        <Button x:Name="ToggleMenuButton" Background="Transparent" BorderThickness="0" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0 10" Width="45" Height="45" Click="ToggleMenu_Click">
+                            <Viewbox>
+                                <ContentControl Content="{DynamicResource Togg}" Width="24" Height="24"/>
+                            </Viewbox>
+                        </Button>
+
+                        <!-- 菜单项 -->
+                        <RadioButton Content="主页" IsChecked="True" Tag="{DynamicResource SidebarMenuHome}" Style="{DynamicResource MenuRadioButtonStyle}"  Foreground="White" HorizontalAlignment="Left" Margin="0 5" GroupName="MenuGroup" Checked="MenuItem_Checked" BorderThickness="0" Background="Transparent" />
+                            <RadioButton Content="版本" Style="{DynamicResource MenuRadioButtonStyle}" Foreground="White" HorizontalAlignment="Left" Margin="0 5" GroupName="MenuGroup" Checked="MenuItem_Checked" BorderThickness="0" Background="Transparent"/>
+                        <RadioButton Content="设置" Tag="{DynamicResource SidebarMenuSetting}" Style="{DynamicResource MenuRadioButtonStyle}"  Foreground="White" HorizontalAlignment="Left" Margin="0 5" GroupName="MenuGroup" Checked="MenuItem_Checked" BorderThickness="0" Background="Transparent"/>
+                    </StackPanel>
+                </Grid>
+
+
+            </Grid>
+        </Grid>
+    </Grid>
+</Window>
