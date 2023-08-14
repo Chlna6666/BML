@@ -58,7 +58,9 @@
                                     <ColumnDefinition/>
                                 </Grid.ColumnDefinitions>
                                 <Border x:Name="btnSelected" Grid.ColumnSpan="2" CornerRadius="4" Width="210" HorizontalAlignment="Right" Background="{DynamicResource SecundaryBackgroundColor}" Visibility="Collapsed"/>
-                                <Rectangle Name="Indicator" HorizontalAlignment="Left" Width="4" Height="40" VerticalAlignment="Center" RadiusX="2" RadiusY="2" Fill="{DynamicResource PrimaryBlueColor}" Visibility="Collapsed"/>
+                              
+<Rectangle Name="Indicator" HorizontalAlignment="Left" Width="4" Height="40" VerticalAlignment="Center" Fill="{DynamicResource PrimaryBlueColor}" Visibility="Collapsed"/>
+
                                 <Path x:Name="Icon" Data="{Binding Tag, RelativeSource={RelativeSource AncestorType={x:Type RadioButton}}}" Height="24" Width="24" Stretch="None" Fill="{DynamicResource ActionIconColor}" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="0 0 8 0" Visibility="Visible"/>
                                 <TextBlock x:Name="txtName" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="12 0 0 0"
                                     Grid.Column="1" Text="{TemplateBinding Content}" Foreground="{TemplateBinding Foreground}"
