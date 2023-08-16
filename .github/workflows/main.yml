@@ -16,7 +16,7 @@ jobs:
     - name: Set up .NET
       uses: actions/setup-dotnet@v2
       with:
-        dotnet-version: 6.0.x
+        dotnet-version: 6.0.413
 
     - name: Restore dependencies
       run: msbuild BML.sln /t:Restore /p:Configuration=Debug
