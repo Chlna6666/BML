@@ -19,9 +19,9 @@ jobs:
         dotnet-version: 6.0.413
 
     - name: Restore dependencies
-      run: msbuild BML.sln /t:Restore /p:Configuration=Debug
+      run: msbuild BML/BML.csproj /t:Restore /p:Configuration=Debug
 
     - name: Build and test
       run: |
-        msbuild BML.sln /p:Configuration=Debug
+        msbuild BML/BML.csproj /p:Configuration=Debug
         dotnet test BML.Tests/BML.Tests.csproj
