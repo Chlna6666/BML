@@ -13,15 +13,7 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v2
 
-    - name: Set up .NET
-      uses: actions/setup-dotnet@v2
-      with:
-        dotnet-version: 6.0.413
-
-    - name: Restore dependencies
-      run: dotnet restore BML/BML.csproj
-
-    - name: Build and test
+    - name: Display working directory
       run: |
-        dotnet build BML/BML.csproj
-        dotnet test BML.Tests/BML.Tests.csproj
+        echo "Current working directory: $PWD"
+        ls -la
