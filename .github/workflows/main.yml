@@ -1,34 +1,27 @@
-name: build
+name: Build and Test BML WPF App
 
 on:
   push:
-  pull_request:
-    branches: [ main ]
-    paths:
-    - '**.cs'
-    - '**.csproj'
-
-env:
-  DOTNET_VERSION: '6.0.413' # The .NET SDK version to use
+    branches:
+      - main
 
 jobs:
   build:
-
-    name: build-${{matrix.os}}
-    runs-on: ${{ matrix.os }}
-    strategy:
-      matrix:
-        os: [windows-latest]
+    runs-on: windows-latest
 
     steps:
-    - uses: actions/checkout@v3
-    - name: Setup .NET Core
-      uses: actions/setup-dotnet@v3
-      with:
-        dotnet-version: ${{ env.DOTNET_VERSION }}
+    - name: Checkout code
+      uses: actions/checkout@v2
 
-    - name: Install dependencies
-      run: dotnet restore
-      
-    - name: Build
-      run: dotnet build --configuration Release --no-restore
+    - name: Set up .NET
+      uses: actions/setup-dotnet@v2
+      with:
+        dotnet-version: 6.0.413
+
+    - name: Restore dependencies
+      run: dotnet restore BML/BML.csproj
+
+    - name: Build and test
+      run: |
+        dotnet build BML/BML.csproj
+        dotnet test BML.Tests/BML.Tests.csproj
