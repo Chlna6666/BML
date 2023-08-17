@@ -7,13 +7,15 @@
          SnapsToDevicePixels="True">
     <Window.Resources>
         <!-- 定义窗口的圆角边框样式 -->
-        <Style x:Key="RoundedWindowStyle" TargetType="Window">
-            <Setter Property="WindowChrome.WindowChrome">
-                <Setter.Value>
-                    <WindowChrome CornerRadius="10" GlassFrameThickness="0" UseAeroCaptionButtons="False"/>
-                </Setter.Value>
-            </Setter>
-        </Style>
+  <Style x:Key="RoundedWindowStyle" TargetType="Window">
+    <Setter Property="WindowChrome.WindowChrome">
+        <Setter.Value>
+            <WindowChrome CornerRadius="10" GlassFrameThickness="0" UseAeroCaptionButtons="False"/>
+        </Setter.Value>
+    </Setter>
+    <Setter Property="BorderThickness" Value="1"/>
+</Style>
+
         <!-- Background Colors -->
         <SolidColorBrush x:Key="PrimaryBackgroundColor" Color="#f3f3f3"/>
         <SolidColorBrush x:Key="SecundaryBackgroundColor" Color="#f9f9f9"/>
