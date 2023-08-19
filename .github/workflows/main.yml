@@ -1,39 +1,39 @@
 name: Build BML
-  
- on: 
-   push: 
-     branches: 
-       - main 
-  
- jobs: 
-   build: 
-  
-     runs-on: windows-latest 
-  
-     steps: 
-     - name: Checkout code 
-       uses: actions/checkout@v2 
-  
-     - name: Set up .NET 
-       uses: actions/setup-dotnet@v2 
-       with: 
-         dotnet-version: 6.0.413 
-  
-     - name: Restore dependencies 
-       run: dotnet restore BML/BML.csproj 
-  
-     - name: Build project 
-       run: dotnet build BML/BML.csproj --configuration Release 
-  
-     - name: Publish 
-       run: dotnet publish BML/BML.csproj --configuration Release --output ./publish 
-  
-     - name: Rename executable 
-       run: mv ./publish/BML.exe ./publish/YourExecutableName.exe 
-       working-directory: ${{ github.workspace }} 
-  
-     - name: Upload artifact 
-       uses: actions/upload-artifact@v2 
-       with: 
-         name: exe-files 
-         path: ./publish
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+
+    runs-on: windows-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Set up .NET
+      uses: actions/setup-dotnet@v2
+      with:
+        dotnet-version: 6.0.413
+
+    - name: Restore dependencies
+      run: dotnet restore BML/BML.csproj
+
+    - name: Build project
+      run: dotnet build BML/BML.csproj --configuration Release
+
+    - name: Publish
+      run: dotnet publish BML/BML.csproj --configuration Release --output ./publish
+
+    - name: Rename executable
+      run: mv ./publish/BML.exe ./publish/YourExecutableName.exe
+      working-directory: ${{ github.workspace }}
+
+    - name: Upload artifact
+      uses: actions/upload-artifact@v2
+      with:
+        name: exe-files
+        path: ./publish
