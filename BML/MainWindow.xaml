@@ -34,7 +34,6 @@
 
         <!-- Icons Colors -->
         <SolidColorBrush x:Key="ActionIconColor" Color="#434344"/>
-        <!-- 定义展开和折叠侧边栏的动画 -->
         <Storyboard x:Key="ExpandSidebar">
             <DoubleAnimation Storyboard.TargetName="Sidebar" Storyboard.TargetProperty="Width" To="200" Duration="0:0:0.3"/>
         </Storyboard>
